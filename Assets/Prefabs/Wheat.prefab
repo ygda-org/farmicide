@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1135768005529065416}
   - component: {fileID: 1135768005529065415}
+  - component: {fileID: 8929089179593763440}
   m_Layer: 0
   m_Name: Wheat
   m_TagString: Untagged
@@ -84,3 +85,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8929089179593763440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135768005529065414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8148e4a64d9cca94389fd7212d32714c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stage0: {fileID: 21300000, guid: 4c7c27f3d6895664888dcf5329ac1c06, type: 3}
+  stage1: {fileID: 21300000, guid: 38774feeae348b04188222329a4306ce, type: 3}
+  stage2: {fileID: 21300000, guid: 07b70db58502e7a4fb6d1e0db1c17944, type: 3}
+  stage3: {fileID: 21300000, guid: 8e6c5449ede5e654285415b007cfb54e, type: 3}
+  sr: {fileID: 1135768005529065415}
