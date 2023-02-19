@@ -18,6 +18,6 @@ public class UpdateTime : MonoBehaviour
     {
         string s = seasons[season];
         string m = months[month];
-        text.text = "Year " + year + " " + s + " " + m;
+        text.text = "Year " + year + " " + s + "\n" + m;
     }
 }

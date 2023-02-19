@@ -30,7 +30,6 @@ public class WheatScript : MonoBehaviour
     void Update()
     {
         m = time.GetComponent<UpdateTime>().month;
-        Debug.Log(m);
         if (m == 3) changeSprite(stage1);
         if (m == 4) changeSprite(stage2);
         if (m == 5) changeSprite(stage3);
