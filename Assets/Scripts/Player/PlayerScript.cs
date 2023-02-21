@@ -7,10 +7,15 @@ using UnityEngine.Events;
 public class PlayerScript : MonoBehaviour
 {
     int playerNumber;
+
     // MOVEMENT GLOBAL VARIABLES
     public float moveSpeed = 3;
     public Rigidbody2D player;
     private Vector2 velocity;
+
+    // GAMEOBJECT REFERENCES
+    public GameObject currentGun;
+    public GameObject currentPlant;
 
     // INPUT GLOBAL VARIABLES
     private PlayerInput playerInput;
@@ -55,8 +60,19 @@ public class PlayerScript : MonoBehaviour
         Shoot.canceled += context => OnButtonReleased(ref isPressedShoot);
     }
 
-    void Awake() {
+    public void Interact() {
+        // find if there are any objects close to the player that they can interact with and then return that object
+        // current interactables are the shop and planting
     }
+
+    public void Shoot() {
+        // example sudo code for the shotgun:
+        // create 5 bullet prefabs that each have a random angle relative to the player
+        // jerk the player in the opposite direction that they fire
+        // give the player endlag
+        // in reality we would have different classes for guns and they would each have different properties under one parent class
+    }
+    
     void Update()
     {
         input();
