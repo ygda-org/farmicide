@@ -6,16 +6,17 @@ using UnityEngine.Events;
 
 public class PlayerScript : MonoBehaviour
 {
-    int playerNumber;
+    private int playerNumber;
 
     // MOVEMENT GLOBAL VARIABLES
     public float moveSpeed = 3;
     public Rigidbody2D player;
     private Vector2 velocity;
 
-    // GAMEOBJECT REFERENCES
+    // GAMEOBJECT/SCRIPT REFERENCES
     public GameObject currentGun;
     public GameObject currentPlant;
+    public PlantGrid plantGrid;
 
     // INPUT GLOBAL VARIABLES
     private PlayerInput playerInput;
@@ -76,6 +77,7 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         input();
+        print(plantGrid.PositionToGridCoordinate(this.gameObject.transform.position));
     }
 
     private void FixedUpdate()

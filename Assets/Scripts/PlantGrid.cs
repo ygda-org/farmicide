@@ -24,8 +24,26 @@ public class PlantGrid : MonoBehaviour {
 
     }
 
+    private bool PositionIsInGrid(Vector2 position) {
+        return -(gridWidth*tileWidth)/2f <= position.x && position.x <= (gridWidth*tileWidth)/2f &&
+               -(gridHeight*tileHeight)/2f <= position.y && position.y <= (gridHeight*tileHeight)/2f;
+    }
+
+    public Vector2 PositionToGridCoordinate(Vector2 position) {
+        // if (!PositionIsInGrid(position)) return new(0,0);
+
+        // double check if this actually works (doesn't work)
+        // Vector2 gridCoordinate = new((int)(position.x/tileWidth), (int)(position.y/tileHeight));
+        return new();
+    }
     public GridTile GetClosestGridTile(GameObject gameObject) {
         Vector2 position = gameObject.transform.position;
+        if (PositionIsInGrid(position)) {
+            // return positionToGridCoordinate(position);
+        }
+        else {
+
+        }
         return new GridTile(new Vector2());
     }
 
@@ -34,8 +52,8 @@ public class PlantGrid : MonoBehaviour {
     }
 }
 public class GridTile {
-    public Vector2 centerCoordinates {get; set;}
-    public Plant plant {get; set;}
+    public Vector2 centerCoordinates;
+    public Plant plant;
 
     public GridTile(Vector2 centerCoordinates_) {
         centerCoordinates = centerCoordinates_;

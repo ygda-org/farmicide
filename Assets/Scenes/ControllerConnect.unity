@@ -236,6 +236,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec419ff1226ff52488fa6b91dd6e0c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainGameSceneName: World
+  playerCursorPrefab: {fileID: 692829004273945519, guid: d974301e41fb9ab43a77fdc35cb73f7b, type: 3}
 --- !u!1 &2014054136
 GameObject:
   m_ObjectHideFlags: 0

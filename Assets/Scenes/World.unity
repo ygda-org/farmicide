@@ -510,6 +510,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3211581827125960109, guid: e49d6ddeac15f0948a767d9cea498cc1, type: 3}
+      propertyPath: plantGrid
+      value: 
+      objectReference: {fileID: 1934948924}
     - target: {fileID: 5364971556797692546, guid: e49d6ddeac15f0948a767d9cea498cc1, type: 3}
       propertyPath: m_Name
       value: Player1
@@ -907,8 +911,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed52d4f2c521ab24ab0e21b16f58b026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridWidth: 5
-  gridHeight: 5
+  gridWidth: 4
+  gridHeight: 4
   tileWidth: 1
   tileHeight: 1
 --- !u!4 &1934948925
@@ -926,6 +930,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2037410727 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1135768005529065414, guid: 5c935a291493bde45809d3faacb2f9bc, type: 3}
+  m_PrefabInstance: {fileID: 1135768006398718688}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2037410731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037410727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6672578acf0595c43a9001320181df70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2141462779
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -933,6 +954,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3211581827125960109, guid: e49d6ddeac15f0948a767d9cea498cc1, type: 3}
+      propertyPath: plantGrid
+      value: 
+      objectReference: {fileID: 1934948924}
     - target: {fileID: 5364971556797692546, guid: e49d6ddeac15f0948a767d9cea498cc1, type: 3}
       propertyPath: m_Name
       value: Player2
@@ -1006,6 +1031,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wheat
       objectReference: {fileID: 0}
+    - target: {fileID: 1135768005529065414, guid: 5c935a291493bde45809d3faacb2f9bc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1135768005529065415, guid: 5c935a291493bde45809d3faacb2f9bc, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1135768005529065416, guid: 5c935a291493bde45809d3faacb2f9bc, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1048,6 +1081,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1135768005529065416, guid: 5c935a291493bde45809d3faacb2f9bc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8929089179593763440, guid: 5c935a291493bde45809d3faacb2f9bc, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
