@@ -1,5 +1,5 @@
 using System.Collections;
-// using System;
+using System.Threading;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -7,21 +7,23 @@ public class CameraController : MonoBehaviour
     public GameObject player1, player2;
     new public Camera camera;
 
-    IEnumerator Shake(float intensity, float duration) {
+    IEnumerator Shake(float intensity, float speed, float duration) {
         var initialPosition = camera.transform.position;
         var startTime = Time.fixedTime;
 
         while (startTime + duration > Time.fixedTime) {
             var randomPoint = new Vector3(Random.Range(-intensity, intensity), Random.Range(-intensity, intensity), initialPosition.z);
             camera.transform.position = randomPoint;
+            
+            int timeOut = (int)(1/speed)*1000;
+            Thread.Sleep(timeOut);
             yield return null;
         }
         camera.transform.position = initialPosition;
-        print("hi");
     }
-    public void ScreenShake(float intensity, float duration) {
+    public void ScreenShake(float intensity, float speed, float duration) {
         
-        StartCoroutine(Shake(intensity, duration));
+        StartCoroutine(Shake(intensity, speed, duration));
     }
 
     public void FollowPlayers() {
@@ -30,7 +32,7 @@ public class CameraController : MonoBehaviour
 
 
     void Awake() {
-        // ScreenShake(0.2f, 0.5f);
+        ScreenShake(0.2f, 100f, 0.5f);
     }
 
     void Update() {

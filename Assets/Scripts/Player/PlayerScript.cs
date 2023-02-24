@@ -1,4 +1,4 @@
-using System;
+ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
@@ -10,8 +10,24 @@ public class PlayerScript : MonoBehaviour
     // MOVEMENT GLOBAL VARIABLES
     public float moveSpeed = 3;
     public float aimSpeed = 150; // only for keyboard
+
     private Vector2 velocity;
     public float aimDirection; // in degrees counterClockWise from the +x-axis
+    public enum Directions { right, left }
+    
+    // whenever this value is changed, it automatically changes the player's direction in game
+    public Directions currentDirection {
+        get { 
+            if (transform.localScale.x < 0) return Directions.left;
+            return Directions.right;
+        }
+        set {
+            if (currentDirection != value) 
+                transform.localScale = new(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            
+        }
+    }
+    // internal Directions _currentDirection;
 
     // GAMEOBJECT/SCRIPT REFERENCES
     public Rigidbody2D player;
@@ -46,7 +62,11 @@ public class PlayerScript : MonoBehaviour
         playerInput = playerInput_;
 
         InputAction Move = playerInput.actions["Move"];
-        Move.performed += context => movementInput = context.ReadValue<Vector2>();
+        Move.performed += context => {
+            movementInput = context.ReadValue<Vector2>();
+            if (movementInput.x > 0) currentDirection = Directions.right;
+            if (movementInput.x < 0) currentDirection = Directions.left;
+        };
         Move.canceled += context => movementInput = new(0, 0);
 
         InputAction Interact = playerInput.actions["Interact"];
@@ -79,8 +99,10 @@ public class PlayerScript : MonoBehaviour
         playerNumber = playerNumber_;
 
         // make player 2 face the correct way
-        if (playerNumber == 2) aimDirection = 180;
-
+        if (playerNumber == 1) {
+            aimDirection = 180;
+            currentDirection = Directions.left;
+        }
         
         InitializeControls(playerInput_);
     }
@@ -103,7 +125,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     void Move() {
-        player.velocity = new Vector2(velocity.x * moveSpeed * Time.deltaTime, velocity.y * moveSpeed * Time.deltaTime);
+        player.velocity = new(velocity.x * moveSpeed * Time.deltaTime, velocity.y * moveSpeed * Time.deltaTime);
 
         if (isPressedAimClockWise)
             aimDirection = (aimDirection - aimSpeed * Time.deltaTime) % 360;

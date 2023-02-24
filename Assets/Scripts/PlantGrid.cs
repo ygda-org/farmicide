@@ -18,7 +18,6 @@ public class PlantGrid : MonoBehaviour {
             for (int row = 0; row < gridHeight; row++) {
                 Vector2 centerCoordinates = new(firstElementCenter.x + col*tileWidth, firstElementCenter.y - row*tileHeight);
                 plantGrid[row, col] = new(centerCoordinates);
-                print(centerCoordinates);
             }
         }
 
