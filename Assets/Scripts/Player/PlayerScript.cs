@@ -1,5 +1,4 @@
-// using System.Collections;
-// using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
@@ -10,13 +9,19 @@ public class PlayerScript : MonoBehaviour
 
     // MOVEMENT GLOBAL VARIABLES
     public float moveSpeed = 3;
-    public Rigidbody2D player;
+    public float aimSpeed = 150; // only for keyboard
     private Vector2 velocity;
+    public float aimDirection; // in degrees counterClockWise from the +x-axis
 
     // GAMEOBJECT/SCRIPT REFERENCES
+    public Rigidbody2D player;
+    public SpriteRenderer spriteRenderer;
+    public PlantGrid plantGrid;
+    public GameObject aimReticle;
+
     public GameObject currentGun;
     public GameObject currentPlant;
-    public PlantGrid plantGrid;
+    
 
     // INPUT GLOBAL VARIABLES
     private PlayerInput playerInput;
@@ -28,7 +33,7 @@ public class PlayerScript : MonoBehaviour
     private Vector2 aimInput = new(0f, 0f);
 
     [SerializeField]
-    private bool isPressedInteract, isPressedShoot;
+    private bool isPressedInteract, isPressedShoot, isPressedAimClockWise, isPressedAimCounterClockWise;
 
     
 
@@ -36,21 +41,13 @@ public class PlayerScript : MonoBehaviour
     // private void OnDisable() { playerInput.enabled = false; }
     private void OnButtonPressed(ref bool button) { button = true; }
     private void OnButtonReleased(ref bool button) { button = false; }
-    private void AimClockWise() {}
-    private void AimCounterClockWise() {}
 
-    public void OnPlayerJoined(PlayerInput playerInput_, int playerNumber_) {
+    private void InitializeControls(PlayerInput playerInput_) {
         playerInput = playerInput_;
-        playerNumber = playerNumber_;
-
 
         InputAction Move = playerInput.actions["Move"];
         Move.performed += context => movementInput = context.ReadValue<Vector2>();
         Move.canceled += context => movementInput = new(0, 0);
-
-        InputAction Aim = playerInput.actions["Aim"];
-        Aim.performed += context => aimInput = context.ReadValue<Vector2>();
-        Aim.canceled += context => aimInput = new(0, 0);
 
         InputAction Interact = playerInput.actions["Interact"];
         Interact.started += context => OnButtonPressed(ref isPressedInteract);
@@ -59,6 +56,33 @@ public class PlayerScript : MonoBehaviour
         InputAction Shoot = playerInput.actions["Shoot"];
         Shoot.started += context => OnButtonPressed(ref isPressedShoot);
         Shoot.canceled += context => OnButtonReleased(ref isPressedShoot);
+
+        InputAction Aim = playerInput.actions["Aim"];
+        Aim.performed += context => {
+            aimInput = context.ReadValue<Vector2>();
+            aimDirection = (float)Mathf.Atan2(aimInput.y, aimInput.x) * Mathf.Rad2Deg;
+        };
+        Aim.canceled += context => aimInput = new(0, 0);
+
+        InputAction AimClockWise = playerInput.actions["AimClockWise"];
+        AimClockWise.started += context => OnButtonPressed(ref isPressedAimClockWise);
+        AimClockWise.canceled += context => OnButtonReleased(ref isPressedAimClockWise);
+
+        InputAction AimCounterClockWise = playerInput.actions["AimCounterClockWise"];
+        AimCounterClockWise.started += context => OnButtonPressed(ref isPressedAimCounterClockWise);
+        AimCounterClockWise.canceled += context => OnButtonReleased(ref isPressedAimCounterClockWise);
+
+    }
+
+    public void OnPlayerJoined(PlayerInput playerInput_, int playerNumber_) {
+
+        playerNumber = playerNumber_;
+
+        // make player 2 face the correct way
+        if (playerNumber == 2) aimDirection = 180;
+
+        
+        InitializeControls(playerInput_);
     }
 
     public void Interact() {
@@ -73,27 +97,33 @@ public class PlayerScript : MonoBehaviour
         // give the player endlag
         // in reality we would have different classes for guns and they would each have different properties under one parent class
     }
-    
+
+    void Input() {
+        velocity = new Vector2(movementInput.x, movementInput.y);
+    }
+
+    void Move() {
+        player.velocity = new Vector2(velocity.x * moveSpeed * Time.deltaTime, velocity.y * moveSpeed * Time.deltaTime);
+
+        if (isPressedAimClockWise)
+            aimDirection = (aimDirection - aimSpeed * Time.deltaTime) % 360;
+        
+        if (isPressedAimCounterClockWise)
+            aimDirection = (aimDirection + aimSpeed * Time.fixedDeltaTime) % 360;
+
+        aimReticle.transform.eulerAngles = new(0, 0, aimDirection);
+    }
+
+
     void Update()
     {
-        input();
+        Input();
         print(plantGrid.PositionToGridCoordinate(this.gameObject.transform.position));
     }
 
     private void FixedUpdate()
     {
-        move();
+        Move();
     }
 
-    void input() {
-        // float moveX = Input.GetAxisRaw("Horizontal");
-        // float moveY = Input.GetAxisRaw("Vertical");
-        float moveX = movementInput.x;
-        float moveY = movementInput.y;
-        velocity = new Vector2(moveX, moveY);
-    }
-
-    void move() {
-        player.velocity = new Vector2(velocity.x * moveSpeed * Time.deltaTime, velocity.y * moveSpeed * Time.deltaTime);
-    }
 }

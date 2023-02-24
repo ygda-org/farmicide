@@ -26,12 +26,12 @@ public class PlayerManager : MonoBehaviour
             }
             playerInputManager.DisableJoining();
         
-            // remove all of the connectedPlayers that do not have a controller
+            // remove all of the connectedPlayers that do not have a controller (I don't understand why I have to do this)
             connectedPlayers.RemoveAll(item => item == null);
         }
 
-        else {
-            // find all of the player controls that are connected to the 
+        // find all of the player controls that are already connected to the game
+        else if (!DEBUGMODE) { 
             foreach (GameObject playerControls in GameObject.FindGameObjectsWithTag("Player Controls")) 
                 connectedPlayers.Add(playerControls.GetComponent<PlayerInput>());
         }
@@ -55,7 +55,7 @@ public class PlayerManager : MonoBehaviour
         playerInputManager.JoinPlayerFromAction(context);
 
         if (playerNumber == 1) player1.OnPlayerJoined(playerInput, 1);
-        if (playerNumber == 1) player2.OnPlayerJoined(playerInput, 2);
+        if (playerNumber == 2) player2.OnPlayerJoined(playerInput, 2);
     }
 
     void Awake() {
