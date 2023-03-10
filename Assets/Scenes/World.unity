@@ -1303,7 +1303,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5364971556797692556, guid: e49d6ddeac15f0948a767d9cea498cc1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.6
+      value: -0.6
       objectReference: {fileID: 0}
     - target: {fileID: 5364971556797692556, guid: e49d6ddeac15f0948a767d9cea498cc1, type: 3}
       propertyPath: m_LocalScale.y
@@ -1962,6 +1962,7 @@ MonoBehaviour:
   enemyTrans: {fileID: 1450537817}
   player: {fileID: 1451050446}
   radius: 1
+  moveSpeed: 2
 --- !u!212 &1450537816
 SpriteRenderer:
   m_ObjectHideFlags: 0
