@@ -11,10 +11,9 @@ public class Chicken : MonoBehaviour
     public Transform player;
     public float radius = 3;
     bool playerDetected = false;
-    private void Start()
-    {
 
-    }
+    public float moveSpeed = 2;
+    private Vector2 velo;
 
     private void Update()
     {
@@ -32,7 +31,12 @@ public class Chicken : MonoBehaviour
             }
         }
         else playerDetected = false;
-        if (playerDetected == true) Debug.Log("player detected");
+        if (playerDetected == true)
+        {
+            Debug.Log("player detected");
+            Vector3 dir = (player.transform.position - enemyRb.transform.position).normalized;
+            enemyRb.MovePosition(enemyRb.transform.position + dir * moveSpeed* Time.fixedDeltaTime);
+        }
     }
 
 }
