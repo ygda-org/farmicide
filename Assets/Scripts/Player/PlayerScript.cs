@@ -1,4 +1,4 @@
- using System;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
@@ -15,6 +15,7 @@ public class PlayerScript : MonoBehaviour
     public float aimDirection; // in degrees counterClockWise from the +x-axis
     public enum Directions { right, left }
     
+
     // whenever this value is changed, it automatically changes the player's direction in game
     public Directions currentDirection {
         get { 
@@ -27,7 +28,9 @@ public class PlayerScript : MonoBehaviour
             
         }
     }
-    // internal Directions _currentDirection;
+
+
+
 
     // GAMEOBJECT/SCRIPT REFERENCES
     public Rigidbody2D player;
@@ -51,7 +54,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField]
     private bool isPressedInteract, isPressedShoot, isPressedAimClockWise, isPressedAimCounterClockWise;
 
-    
+
 
     // private void OnEnable() { playerInput.enabled = true; }
     // private void OnDisable() { playerInput.enabled = false; }
@@ -70,11 +73,17 @@ public class PlayerScript : MonoBehaviour
         Move.canceled += context => movementInput = new(0, 0);
 
         InputAction Interact = playerInput.actions["Interact"];
-        Interact.started += context => OnButtonPressed(ref isPressedInteract);
+        Interact.started += context => {
+            OnButtonPressed(ref isPressedInteract);
+            this.Interact();
+        };
         Interact.canceled += context => OnButtonReleased(ref isPressedInteract);
 
         InputAction Shoot = playerInput.actions["Shoot"];
-        Shoot.started += context => OnButtonPressed(ref isPressedShoot);
+        Shoot.started += context => {
+            OnButtonPressed(ref isPressedShoot);
+            this.Shoot();
+        };
         Shoot.canceled += context => OnButtonReleased(ref isPressedShoot);
 
         InputAction Aim = playerInput.actions["Aim"];
@@ -93,7 +102,6 @@ public class PlayerScript : MonoBehaviour
         AimCounterClockWise.canceled += context => OnButtonReleased(ref isPressedAimCounterClockWise);
 
     }
-
     public void OnPlayerJoined(PlayerInput playerInput_, int playerNumber_) {
 
         playerNumber = playerNumber_;
@@ -106,6 +114,8 @@ public class PlayerScript : MonoBehaviour
         
         InitializeControls(playerInput_);
     }
+
+
 
     public void Interact() {
         // find if there are any objects close to the player that they can interact with and then return that object
@@ -140,7 +150,6 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         Input();
-        print(plantGrid.PositionToGridCoordinate(this.gameObject.transform.position));
     }
 
     private void FixedUpdate()

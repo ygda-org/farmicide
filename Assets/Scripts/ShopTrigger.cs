@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShopTrigger : MonoBehaviour
 {
-    // Start is called before the first frame update
+    
     public UIShopScript UIShop; 
 
     private void OnTriggerEnter2D(Collider2D collider){

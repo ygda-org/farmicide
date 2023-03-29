@@ -6,15 +6,18 @@ using TMPro;
 
 public class UIShopScript : MonoBehaviour
 {
-    private Transform container;
-    private Transform shopItemTemplate;
+
+    public Collider2D shopTrigger;
+
+    public GameObject shopUI;
+    private GameObject container;
+    private GameObject shopItemTemplate;
 
 
     private void Awake(){
-        container = transform.Find("container");
-        shopItemTemplate = container.Find("shopItemTemplate");
-        //shopItemTemplate.gameObject.SetActive(false);
-
+        container = shopUI.transform.Find("container").gameObject;
+        shopItemTemplate = container.transform.Find("shopItemTemplate").gameObject;
+        // shopItemTemplate.gameObject.SetActive(false);
     }
 
     private void Start(){
@@ -25,7 +28,7 @@ public class UIShopScript : MonoBehaviour
         
     }
     private void createItemButton(string itemName, int itemCost, int positionIndex){ //add sprite param later
-        Transform shopItemTransform = Instantiate(shopItemTemplate, container);
+        Transform shopItemTransform = Instantiate(shopItemTemplate.transform, container.transform);
         RectTransform shopItemRectTransform = shopItemTemplate.GetComponent<RectTransform>();
     
         float shopItemHeight = 30f;
@@ -34,16 +37,30 @@ public class UIShopScript : MonoBehaviour
 
         shopItemTransform.Find("cost").GetComponent<TextMeshProUGUI>().SetText(itemCost.ToString());
         shopItemTransform.Find("name").GetComponent<TextMeshProUGUI>().SetText(itemName);
-
-
-
     }
 
     public void hide(){
-        gameObject.SetActive(false);
+        shopUI.SetActive(false);
     }
 
     public void show(){
-        gameObject.SetActive(true);
+        shopUI.SetActive(true);
     }
+
+
+
+    // activate shop
+    private void OnTriggerEnter2D(Collider2D collider){
+            if(collider.gameObject.tag == "Player"){
+                show();
+            }
+    }
+    
+    private void OnTriggerExit2D(Collider2D collider){
+            if(collider.gameObject.tag == "Player"){
+                hide();
+            }
+    }
+
+
 }
