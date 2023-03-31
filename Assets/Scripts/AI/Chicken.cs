@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// implement the chicken charging and dashing into the enemy player
 public class Chicken : MonoBehaviour
 {
     public int target = 0;
@@ -13,9 +14,22 @@ public class Chicken : MonoBehaviour
     bool playerDetected = false;
 
     public float moveSpeed = 2;
-    private Vector2 velo;
+    public float chargeTime;
+    public float coolDown;
+    public double damage;
+    
+    private Vector2 currentTarget;
+    
 
-    private void Update()
+    // private void lockOntoTarget() {
+    //     Vector2 enemyPos = new Vector2(enemyTrans.position.x, enemyTrans.position.y);
+    //     RaycastHit2D ray = Physics2D.CircleCast(enemyPos, radius, new Vector2(0,0), 0);
+    //     if (ray.collider != null) {
+    //         if target
+    //     }
+    // }
+
+    void Update()
     {
         Vector2 enemyPos = new Vector2(enemyTrans.position.x, enemyTrans.position.y);
         RaycastHit2D ray = Physics2D.CircleCast(enemyPos, radius, new Vector2(0,0), 0);

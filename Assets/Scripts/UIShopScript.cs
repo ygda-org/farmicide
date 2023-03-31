@@ -6,45 +6,49 @@ using TMPro;
 
 public class UIShopScript : MonoBehaviour
 {
-
     public Collider2D shopTrigger;
 
-    public GameObject shopUI;
-    private GameObject container;
-    private GameObject shopItemTemplate;
+    public GameObject shopUIContainer; 
+    public GameObject shopItemPrefab;
+    
+    public float shopItemSpacing;
+
+    public Vector2 defaultShopUIPosition; // unused currently
 
 
-    private void Awake(){
-        container = shopUI.transform.Find("container").gameObject;
-        shopItemTemplate = container.transform.Find("shopItemTemplate").gameObject;
+
+    private void Awake(){;
         // shopItemTemplate.gameObject.SetActive(false);
     }
 
     private void Start(){
         createItemButton("e", Items.GetCost(Items.ItemType.yourMom), 0);
         createItemButton("F", Items.GetCost(Items.ItemType.yourMom), 1);
-        shopItemTemplate.gameObject.SetActive(false);
         hide();
         
     }
     private void createItemButton(string itemName, int itemCost, int positionIndex){ //add sprite param later
-        Transform shopItemTransform = Instantiate(shopItemTemplate.transform, container.transform);
-        RectTransform shopItemRectTransform = shopItemTemplate.GetComponent<RectTransform>();
-    
-        float shopItemHeight = 30f;
-        
-        shopItemTransform.position = shopItemTransform.position + new Vector3(0, - shopItemHeight * positionIndex * 0.1f, 0);  //change the float multiplier if ui design is changed
+        GameObject shopItem = Instantiate(shopItemPrefab, shopUIContainer.transform);
+        shopItem.transform.parent = shopUIContainer.transform;
 
-        shopItemTransform.Find("cost").GetComponent<TextMeshProUGUI>().SetText(itemCost.ToString());
-        shopItemTransform.Find("name").GetComponent<TextMeshProUGUI>().SetText(itemName);
+        // RectTransform shopItemRectTransform = shopItem.GetComponent<RectTransform>();
+
+        ShopItemData itemData  = shopItem.GetComponent<ShopItemData>();
+
+        float shopItemHeight = 15f;
+        
+        shopItem.transform.position = shopItem.transform.position + new Vector3(0, - shopItemHeight * positionIndex * 0.1f, 0);  //change the float multiplier if ui design is changed
+
+        itemData.Cost = itemCost;
+        itemData.Name = itemName;
     }
 
     public void hide(){
-        shopUI.SetActive(false);
+        shopUIContainer.SetActive(false);
     }
 
     public void show(){
-        shopUI.SetActive(true);
+        shopUIContainer.SetActive(true);
     }
 
 
