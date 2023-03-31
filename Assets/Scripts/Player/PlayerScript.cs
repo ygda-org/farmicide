@@ -6,6 +6,9 @@ using UnityEngine.Events;
 public class PlayerScript : MonoBehaviour
 {
     private int playerNumber;
+    public double maxHealth;
+    public double currentHealth;
+
 
     // MOVEMENT GLOBAL VARIABLES
     public float moveSpeed = 3;
@@ -105,6 +108,7 @@ public class PlayerScript : MonoBehaviour
     public void OnPlayerJoined(PlayerInput playerInput_, int playerNumber_) {
 
         playerNumber = playerNumber_;
+        currentHealth = maxHealth;
 
         // make player 2 face the correct way
         if (playerNumber == 1) {
