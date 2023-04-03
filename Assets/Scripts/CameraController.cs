@@ -32,7 +32,7 @@ public class CameraController : MonoBehaviour
 
 
     void Awake() {
-        ScreenShake(0.2f, 100f, 0.5f);
+        // ScreenShake(0.2f, 100f, 0.5f);
     }
 
     void Update() {

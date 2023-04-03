@@ -40,8 +40,7 @@ public class Chicken : MonoBehaviour
     private void lockOntoTarget() {
         Vector2 chickenPosition = new Vector2(transform.position.x, transform.position.y);
         Vector2 enemyPlayerPosition = new Vector2(enemyPlayerObject.transform.position.x, enemyPlayerObject.transform.position.y);
-        print(chickenPosition);
-        print(enemyPlayerPosition);
+        
         if (Vector2.Distance(chickenPosition, enemyPlayerPosition) <= radius) {
             currentTarget = enemyPlayerObject.transform.position;
             currentState = states.charging;

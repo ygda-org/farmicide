@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using TMPro;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -10,9 +11,24 @@ public class PlayerScript : MonoBehaviour
     public double currentHealth;
 
 
+    public TextMeshProUGUI moneyText;
+    public int startingMoney;
+    private int money;
+    public void setMoney(int money_) {
+        money = money_;
+        if (playerNumber == 1) moneyText.text = "P1: $" + money;
+        else if (playerNumber == 2) moneyText.text = "P2: $" + money;
+    }
+    public int getMoney() {
+        return money;
+    }
+
+
+
     // MOVEMENT GLOBAL VARIABLES
     public float moveSpeed = 3;
     public float aimSpeed = 150; // only for keyboard
+    public bool movementIsDisabled;
 
     private Vector2 velocity;
     public float aimDirection; // in degrees counterClockWise from the +x-axis
@@ -49,16 +65,16 @@ public class PlayerScript : MonoBehaviour
     private PlayerInput playerInput;
 
     [SerializeField]
-    private Vector2 movementInput = new(0f, 0f);
+    public Vector2 movementInput = new(0f, 0f);
 
     [SerializeField]
-    private Vector2 aimInput = new(0f, 0f);
+    public Vector2 aimInput = new(0f, 0f);
 
     [SerializeField]
-    private bool isPressedInteract, isPressedShoot, isPressedAimClockWise, isPressedAimCounterClockWise;
+    public bool isPressedInteract, isPressedShoot, isPressedAimClockWise, isPressedAimCounterClockWise;
 
 
-
+    // maybe these will come in useful later
     // private void OnEnable() { playerInput.enabled = true; }
     // private void OnDisable() { playerInput.enabled = false; }
     private void OnButtonPressed(ref bool button) { button = true; }
@@ -70,8 +86,11 @@ public class PlayerScript : MonoBehaviour
         InputAction Move = playerInput.actions["Move"];
         Move.performed += context => {
             movementInput = context.ReadValue<Vector2>();
-            if (movementInput.x > 0) currentDirection = Directions.right;
-            if (movementInput.x < 0) currentDirection = Directions.left;
+            if (movementInput.x > 0 && !movementIsDisabled) 
+                currentDirection = Directions.right;
+
+            if (movementInput.x < 0 && !movementIsDisabled) 
+                currentDirection = Directions.left;
         };
         Move.canceled += context => movementInput = new(0, 0);
 
@@ -109,6 +128,7 @@ public class PlayerScript : MonoBehaviour
 
         playerNumber = playerNumber_;
         currentHealth = maxHealth;
+        setMoney(startingMoney);
 
         // make player 2 face the correct way
         if (playerNumber == 1) {
@@ -138,6 +158,13 @@ public class PlayerScript : MonoBehaviour
         velocity = new Vector2(movementInput.x, movementInput.y);
     }
 
+    public void disableMovement() { 
+        movementIsDisabled = true; 
+        player.velocity = new(0, 0);
+    }
+    public void enableMovement() { movementIsDisabled = false; }
+
+
     void Move() {
         player.velocity = new(velocity.x * moveSpeed * Time.deltaTime, velocity.y * moveSpeed * Time.deltaTime);
 
@@ -158,7 +185,7 @@ public class PlayerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        if (!movementIsDisabled) Move();
     }
 
 }
