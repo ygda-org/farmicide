@@ -32,16 +32,18 @@ public class UIShopScript : MonoBehaviour
 
     [System.Serializable]
     public struct ShopItemData {
-        public ShopItemData(string name_, int cost_, ItemTypes itemType_, SpriteRenderer icon_ = null) {
+        public ShopItemData(string name_, int cost_, ItemTypes itemType_, SpriteRenderer icon_ = null, GameObject itemObject_ = null) {
             name = name_;
             cost = cost_;
             icon = icon_;
             itemType = itemType_;
+            itemObject = itemObject_;
         }
         public string name;
         public int cost;
-        public SpriteRenderer icon;
         public ItemTypes itemType;
+        public SpriteRenderer icon;
+        public GameObject itemObject;
     }
 
     [SerializeField]
@@ -70,7 +72,7 @@ public class UIShopScript : MonoBehaviour
 
         ShopItemHandler shopItemHandler = shopItemUI.GetComponent<ShopItemHandler>();
 
-        float shopItemHeight = 15f;
+        float shopItemHeight = 8f;
         
         shopItemUI.transform.position = shopItemUI.transform.position + new Vector3(0, - shopItemHeight * positionIndex * 0.1f, 0);  //change the float multiplier if ui design is changed
 
@@ -106,6 +108,15 @@ public class UIShopScript : MonoBehaviour
     private void buySelectedItem(PlayerScript player){
         ShopItemData currentItem = availableShopItems[selectedShopItemIndex];
         player.setMoney(player.getMoney()-currentItem.cost);
+
+        if (currentItem.itemType == ItemTypes.gun)
+            player.currentGun = currentItem.itemObject;
+        
+        if (currentItem.itemType == ItemTypes.troop)
+            player.currentTroop = currentItem.itemObject;
+        
+        if (currentItem.itemType == ItemTypes.plant)
+            player.currentPlant = currentItem.itemObject;
     }
 
     void Awake(){
@@ -130,14 +141,22 @@ public class UIShopScript : MonoBehaviour
             menuWaitCounter = totalMenuWaitFrames;
         }
 
-        if (currentPlayer.isPressedInteract && menuWaitCounter <= 0) {
-            buySelectedItem(currentPlayer);
+        if (currentPlayer.isPressedInteract && menuWaitCounter == -1) {
+            if (currentPlayer.getMoney() >= availableShopItems[selectedShopItemIndex].cost)
+                buySelectedItem(currentPlayer);
+
             menuWaitCounter = totalMenuWaitFrames;
         }
         
+
         if (menuWaitCounter > 0) menuWaitCounter--;
-        if (currentPlayer.movementInput.y < 0.5 && currentPlayer.movementInput.y > -0.5)
-            menuWaitCounter = 0;
+
+        if (currentPlayer.movementInput.y < 0.5 
+        &&  currentPlayer.movementInput.y > -0.5
+        &&  currentPlayer.isPressedInteract == false
+            )
+            menuWaitCounter = -1;
+        
 
         if (currentPlayer.isPressedShoot && menuWaitCounter <= 0) {
             currentPlayer.enableMovement();

@@ -58,7 +58,9 @@ public class PlayerScript : MonoBehaviour
     public GameObject aimReticle;
 
     public GameObject currentGun;
+    public GameObject currentTroop;
     public GameObject currentPlant;
+    public GameObject heldItem;
     
 
     // INPUT GLOBAL VARIABLES
