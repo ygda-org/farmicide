@@ -47,3 +47,15 @@ TagManager:
   - name: above
     uniqueID: 1864604377
     locked: 0
+  - name: Background
+    uniqueID: 2649266939
+    locked: 0
+  - name: Player
+    uniqueID: 3252038665
+    locked: 0
+  - name: Shop
+    uniqueID: 2740135411
+    locked: 0
+  - name: UI
+    uniqueID: 2452097745
+    locked: 0

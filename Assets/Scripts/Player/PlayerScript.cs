@@ -3,12 +3,24 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
     private int playerNumber;
+
+
     public double maxHealth;
     public double currentHealth;
+    public Slider healthSlider;
+
+    public double getHP() {
+        return currentHealth;
+    }
+    public void setHP(double newHealth) {
+        currentHealth = newHealth;
+        healthSlider.value = (float)newHealth;
+    }
 
 
     public TextMeshProUGUI moneyText;
@@ -36,14 +48,19 @@ public class PlayerScript : MonoBehaviour
     
 
     // whenever this value is changed, it automatically changes the player's direction in game
-    public Directions currentDirection {
+    public Directions CurrentDirection {
         get { 
             if (transform.localScale.x < 0) return Directions.left;
             return Directions.right;
         }
         set {
-            if (currentDirection != value) 
+            if (CurrentDirection != value) {
                 transform.localScale = new(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
+                // make sure that the aim reticle doesn't do weird things
+                Vector3 aimReticleScale = aimReticle.transform.localScale;
+                aimReticle.transform.localScale = new(-aimReticleScale.x, aimReticleScale.y, aimReticleScale.z);
+            }
             
         }
     }
@@ -88,11 +105,6 @@ public class PlayerScript : MonoBehaviour
         InputAction Move = playerInput.actions["Move"];
         Move.performed += context => {
             movementInput = context.ReadValue<Vector2>();
-            if (movementInput.x > 0 && !movementIsDisabled) 
-                currentDirection = Directions.right;
-
-            if (movementInput.x < 0 && !movementIsDisabled) 
-                currentDirection = Directions.left;
         };
         Move.canceled += context => movementInput = new(0, 0);
 
@@ -135,12 +147,19 @@ public class PlayerScript : MonoBehaviour
         // make player 2 face the correct way
         if (playerNumber == 1) {
             aimDirection = 180;
-            currentDirection = Directions.left;
+            CurrentDirection = Directions.left;
         }
         
         InitializeControls(playerInput_);
     }
 
+
+    void Awake() {
+        currentHealth = maxHealth;
+        setMoney(startingMoney);
+        setHP(maxHealth);
+        healthSlider.maxValue = (float)maxHealth;
+    }
 
 
     public void Interact() {
@@ -156,9 +175,6 @@ public class PlayerScript : MonoBehaviour
         // in reality we would have different classes for guns and they would each have different properties under one parent class
     }
 
-    void Input() {
-        velocity = new Vector2(movementInput.x, movementInput.y);
-    }
 
     public void disableMovement() { 
         movementIsDisabled = true; 
@@ -166,9 +182,16 @@ public class PlayerScript : MonoBehaviour
     }
     public void enableMovement() { movementIsDisabled = false; }
 
-
     void Move() {
+        velocity = new Vector2(movementInput.x, movementInput.y);
         player.velocity = new(velocity.x * moveSpeed * Time.deltaTime, velocity.y * moveSpeed * Time.deltaTime);
+
+        if (movementInput.x > 0 && !movementIsDisabled) 
+                CurrentDirection = Directions.right;
+
+        if (movementInput.x < 0 && !movementIsDisabled) 
+                CurrentDirection = Directions.left;
+    
 
         if (isPressedAimClockWise)
             aimDirection = (aimDirection - aimSpeed * Time.deltaTime) % 360;
@@ -179,11 +202,6 @@ public class PlayerScript : MonoBehaviour
         aimReticle.transform.eulerAngles = new(0, 0, aimDirection);
     }
 
-
-    void Update()
-    {
-        Input();
-    }
 
     private void FixedUpdate()
     {
