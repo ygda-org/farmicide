@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Events;
 using TMPro;
 using UnityEngine.UI;
 
@@ -14,10 +12,10 @@ public class PlayerScript : MonoBehaviour
     public double currentHealth;
     public Slider healthSlider;
 
-    public double getHP() {
+    public double getHealth() {
         return currentHealth;
     }
-    public void setHP(double newHealth) {
+    public void setHealth(double newHealth) {
         currentHealth = newHealth;
         healthSlider.value = (float)newHealth;
     }
@@ -58,8 +56,8 @@ public class PlayerScript : MonoBehaviour
                 transform.localScale = new(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
 
                 // make sure that the aim reticle doesn't do weird things
-                Vector3 aimReticleScale = aimReticle.transform.localScale;
-                aimReticle.transform.localScale = new(-aimReticleScale.x, aimReticleScale.y, aimReticleScale.z);
+                Vector3 UIContainerScale = UIContainer.transform.localScale;
+                UIContainer.transform.localScale = new(-UIContainerScale.x, UIContainerScale.y, UIContainerScale.z);
             }
             
         }
@@ -70,7 +68,9 @@ public class PlayerScript : MonoBehaviour
 
     // GAMEOBJECT/SCRIPT REFERENCES
     public Rigidbody2D player;
+    public GameObject enemyPlayer;
     public SpriteRenderer spriteRenderer;
+    public GameObject UIContainer;
     public PlantGrid plantGrid;
     public GameObject aimReticle;
 
@@ -138,11 +138,12 @@ public class PlayerScript : MonoBehaviour
         AimCounterClockWise.canceled += context => OnButtonReleased(ref isPressedAimCounterClockWise);
 
     }
-    public void OnPlayerJoined(PlayerInput playerInput_, int playerNumber_) {
+    public void OnPlayerJoined(PlayerInput playerInput_, GameObject enemyPlayer_, int playerNumber_) {
 
         playerNumber = playerNumber_;
         currentHealth = maxHealth;
         setMoney(startingMoney);
+        enemyPlayer = enemyPlayer_;
 
         // make player 2 face the correct way
         if (playerNumber == 1) {
@@ -157,8 +158,8 @@ public class PlayerScript : MonoBehaviour
     void Awake() {
         currentHealth = maxHealth;
         setMoney(startingMoney);
-        setHP(maxHealth);
         healthSlider.maxValue = (float)maxHealth;
+        setHealth(maxHealth);
     }
 
 

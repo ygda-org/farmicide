@@ -39,14 +39,14 @@ public class PlayerManager : MonoBehaviour
 
         if (connectedPlayers.Count >= 2) {
             // initialize controls for these two players
-            player1.OnPlayerJoined(connectedPlayers[0], 1);
-            player2.OnPlayerJoined(connectedPlayers[1], 2);
+            player1.OnPlayerJoined(connectedPlayers[0], player2.gameObject, 1);
+            player2.OnPlayerJoined(connectedPlayers[1], player1.gameObject,  2);
         }
 
         else if (connectedPlayers.Count == 1) {
             // Debug 1 player mode
             print("DEBUG 1 PLAYER MODE");
-            player1.OnPlayerJoined(connectedPlayers[0], 1);
+            player1.OnPlayerJoined(connectedPlayers[0], player2.gameObject, 1);
         }
         
     }
@@ -54,8 +54,8 @@ public class PlayerManager : MonoBehaviour
     public void InitializePlayerControls(PlayerInput playerInput, InputAction.CallbackContext context, int playerNumber) {
         playerInputManager.JoinPlayerFromAction(context);
 
-        if (playerNumber == 1) player1.OnPlayerJoined(playerInput, 1);
-        if (playerNumber == 2) player2.OnPlayerJoined(playerInput, 2);
+        if (playerNumber == 1) player1.OnPlayerJoined(playerInput, player2.gameObject, 1);
+        if (playerNumber == 2) player2.OnPlayerJoined(playerInput, player1.gameObject, 2);
     }
 
     void Awake() {

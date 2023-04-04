@@ -8,7 +8,7 @@ public class Chicken : MonoBehaviour
 {
     public int target = 0;
 
-    public GameObject enemyPlayerObject;
+    public GameObject enemyPlayer;
     // public Transform enemyTrans;
     // public Transform player;
     public float radius = 3;
@@ -35,14 +35,17 @@ public class Chicken : MonoBehaviour
     };
 
     public states currentState;
-    
+
+    public void initializeChicken(GameObject enemyPlayer_) {
+        enemyPlayer = enemyPlayer_;
+    }
 
     private void lockOntoTarget() {
         Vector2 chickenPosition = new Vector2(transform.position.x, transform.position.y);
-        Vector2 enemyPlayerPosition = new Vector2(enemyPlayerObject.transform.position.x, enemyPlayerObject.transform.position.y);
+        Vector2 enemyPlayerPosition = new Vector2(enemyPlayer.transform.position.x, enemyPlayer.transform.position.y);
         
         if (Vector2.Distance(chickenPosition, enemyPlayerPosition) <= radius) {
-            currentTarget = enemyPlayerObject.transform.position;
+            currentTarget = enemyPlayer.transform.position;
             currentState = states.charging;
         }
         
@@ -86,9 +89,11 @@ public class Chicken : MonoBehaviour
     }
     
     void OnTriggerEnter2D(Collider2D collider){
-        if(collider.gameObject.tag == "Player")
-            collider.gameObject.GetComponent<PlayerScript>().currentHealth -= damage;   
+        if(collider.gameObject == enemyPlayer) {
+            PlayerScript enemyPlayerScript = collider.gameObject.GetComponent<PlayerScript>();   
+            enemyPlayerScript.setHealth(enemyPlayerScript.getHealth()-damage);
             Destroy(this.gameObject);
+        }
     }
 
 
