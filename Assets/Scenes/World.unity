@@ -1000,7 +1000,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &775860237
 Transform:
   m_ObjectHideFlags: 0
@@ -2825,7 +2825,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1135768005529065415, guid: 5c935a291493bde45809d3faacb2f9bc, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1135768005529065415, guid: 5c935a291493bde45809d3faacb2f9bc, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1135768005529065415, guid: 5c935a291493bde45809d3faacb2f9bc, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1645700357
       objectReference: {fileID: 0}
     - target: {fileID: 1135768005529065416, guid: 5c935a291493bde45809d3faacb2f9bc, type: 3}
       propertyPath: m_RootOrder
@@ -2873,7 +2881,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8929089179593763440, guid: 5c935a291493bde45809d3faacb2f9bc, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c935a291493bde45809d3faacb2f9bc, type: 3}
@@ -2906,7 +2914,7 @@ MonoBehaviour:
   aimReticle: {fileID: 1907950808}
   currentGun: {fileID: 0}
   currentTroop: {fileID: 0}
-  currentPlant: {fileID: 0}
+  currentPlant: {fileID: 2037410727}
   heldItem: {fileID: 0}
   movementInput: {x: 0, y: 0}
   aimInput: {x: 0, y: 0}

@@ -164,6 +164,7 @@ public class PlayerScript : MonoBehaviour
 
 
     public void Interact() {
+        GameObject newPlant = Instantiate(currentPlant, new Vector2(player.position.x, player.position.y), Quaternion.identity);
         // find if there are any objects close to the player that they can interact with and then return that object
         // current interactables are the shop and planting
     }
@@ -207,6 +208,7 @@ public class PlayerScript : MonoBehaviour
     private void FixedUpdate()
     {
         if (!movementIsDisabled) Move();
+        if(!movementIsDisabled && isPressedInteract) Interact();
     }
 
 }
