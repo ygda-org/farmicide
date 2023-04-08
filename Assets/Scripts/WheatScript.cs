@@ -9,15 +9,17 @@ public class WheatScript : MonoBehaviour
     public Sprite stage1;
     public Sprite stage2;
     public Sprite stage3;
+    public int cost = 1;
 
     public SpriteRenderer sr;
 
     GameObject time;
-    int m;
+    public int m;
 
     void changeSprite(Sprite sprite) {
         sr.sprite = sprite;
     }
+
 
     void Start()
     {

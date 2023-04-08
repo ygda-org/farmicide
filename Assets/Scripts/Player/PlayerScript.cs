@@ -88,6 +88,7 @@ public class PlayerScript : MonoBehaviour
 
     // INPUT GLOBAL VARIABLES
     private PlayerInput playerInput;
+    private bool inPlant;
 
     [SerializeField]
     public Vector2 movementInput = new(0f, 0f);
@@ -171,7 +172,12 @@ public class PlayerScript : MonoBehaviour
 
 
     public void Interact() {
-        GameObject newPlant = Instantiate(currentPlant, new Vector2(player.position.x, player.position.y), Quaternion.identity);
+        if(currentPlant.tag == "wheat"){
+            if(inPlant == false && money >= currentPlant.GetComponent<WheatScript>().cost){
+                GameObject newPlant = Instantiate(currentPlant, new Vector2(player.position.x, player.position.y), Quaternion.identity);
+                setMoney(money - currentPlant.GetComponent<WheatScript>().cost);
+            }
+        }
         // find if there are any objects close to the player that they can interact with and then return that object
         // current interactables are the shop and planting
     }
@@ -184,6 +190,20 @@ public class PlayerScript : MonoBehaviour
         // in reality we would have different classes for guns and they would each have different properties under one parent class
     }
 
+    private void OnTriggerEnter2D(Collider2D collider){
+        if(collider.gameObject.tag == "wheat"){
+            inPlant = true;
+            if(collider.gameObject.GetComponent<WheatScript>().m >= 5){
+                Destroy(collider.gameObject);
+            }
+        }
+    }
+    
+    private void OnTriggerExit2D(Collider2D collider){
+        if(collider.gameObject.tag == "wheat"){
+            inPlant = false;
+        }
+    }
 
     public void disableMovement() { 
         movementIsDisabled = true; 
