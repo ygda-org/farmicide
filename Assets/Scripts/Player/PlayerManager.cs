@@ -39,8 +39,8 @@ public class PlayerManager : MonoBehaviour
 
         if (connectedPlayers.Count >= 2) {
             // initialize controls for these two players
-            player1.OnPlayerJoined(connectedPlayers[0], player2.gameObject, 1);
-            player2.OnPlayerJoined(connectedPlayers[1], player1.gameObject,  2);
+            player1.OnPlayerJoined(connectedPlayers[0], enemyPlayer_: player2.gameObject, 1);
+            player2.OnPlayerJoined(connectedPlayers[1], enemyPlayer_: player1.gameObject, 2);
         }
 
         else if (connectedPlayers.Count == 1) {

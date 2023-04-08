@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -42,6 +43,11 @@ public class PlayerScript : MonoBehaviour
 
     private Vector2 velocity;
     public float aimDirection; // in degrees counterClockWise from the +x-axis
+
+    public float zAxisScalingMultipler; // helps to give the illusion that the player is moving into the screen when they move up
+    private Vector3 defaultScale;
+
+
     public enum Directions { right, left }
     
 
@@ -111,7 +117,8 @@ public class PlayerScript : MonoBehaviour
         InputAction Interact = playerInput.actions["Interact"];
         Interact.started += context => {
             OnButtonPressed(ref isPressedInteract);
-            this.Interact();
+            if (!movementIsDisabled)
+                this.Interact();
         };
         Interact.canceled += context => OnButtonReleased(ref isPressedInteract);
 
@@ -141,12 +148,10 @@ public class PlayerScript : MonoBehaviour
     public void OnPlayerJoined(PlayerInput playerInput_, GameObject enemyPlayer_, int playerNumber_) {
 
         playerNumber = playerNumber_;
-        currentHealth = maxHealth;
-        setMoney(startingMoney);
         enemyPlayer = enemyPlayer_;
 
         // make player 2 face the correct way
-        if (playerNumber == 1) {
+        if (playerNumber == 2) {
             aimDirection = 180;
             CurrentDirection = Directions.left;
         }
@@ -155,11 +160,13 @@ public class PlayerScript : MonoBehaviour
     }
 
 
-    void Awake() {
+    void Start() {
         currentHealth = maxHealth;
         setMoney(startingMoney);
         healthSlider.maxValue = (float)maxHealth;
         setHealth(maxHealth);
+
+        defaultScale = transform.localScale;
     }
 
 
@@ -204,11 +211,29 @@ public class PlayerScript : MonoBehaviour
         aimReticle.transform.eulerAngles = new(0, 0, aimDirection);
     }
 
+    void ScalePlayer() {
+        float scalingFactor = transform.position.y*zAxisScalingMultipler;
+        float newYScale = defaultScale.y-scalingFactor;
+        float newXScale;
+        // Don't worry about this too much its just to patch up some unexpected behavior
+        if (CurrentDirection == Directions.right) 
+            newXScale = Math.Abs(defaultScale.x)-scalingFactor; 
+        
+        else 
+            newXScale = -Math.Abs(defaultScale.x)+scalingFactor;
+        
+        transform.localScale = new(newXScale, newYScale, transform.localScale.z); 
+    }
+
+
 
     private void FixedUpdate()
     {
+        // Scales the player based on their y coordinate. 
+        // This gives the illusion that the player is moving into the z axis
+        ScalePlayer();
+        
         if (!movementIsDisabled) Move();
-        if(!movementIsDisabled && isPressedInteract) Interact();
     }
 
 }
