@@ -175,6 +175,7 @@ public class PlayerScript : MonoBehaviour
         if(currentPlant.tag == "wheat"){
             if(inPlant == false && money >= currentPlant.GetComponent<WheatScript>().cost){
                 GameObject newPlant = Instantiate(currentPlant, new Vector2(player.position.x, player.position.y), Quaternion.identity);
+                newPlant.SetActive(true);
                 setMoney(money - currentPlant.GetComponent<WheatScript>().cost);
             }
         }
@@ -193,10 +194,14 @@ public class PlayerScript : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider){
         if(collider.gameObject.tag == "wheat"){
             inPlant = true;
-            if(collider.gameObject.GetComponent<WheatScript>().m >= 5){
-                Destroy(collider.gameObject);
-            }
+            
         }
+    }
+    private void OnTriggerStay2D(Collider2D collider){
+        if(collider.gameObject.GetComponent<WheatScript>().m <= 0 && isPressedInteract){
+                Destroy(collider.gameObject);
+                setMoney(money + currentPlant.GetComponent<WheatScript>().profit);
+            }
     }
     
     private void OnTriggerExit2D(Collider2D collider){

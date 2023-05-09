@@ -10,11 +10,13 @@ public class WheatScript : MonoBehaviour
     public Sprite stage2;
     public Sprite stage3;
     public int cost = 1;
+    public int profit = 5;
+    public float time = 10f; 
 
     public SpriteRenderer sr;
 
-    GameObject time;
-    public int m;
+    //GameObject time;
+    public float m;
 
     void changeSprite(Sprite sprite) {
         sr.sprite = sprite;
@@ -23,17 +25,21 @@ public class WheatScript : MonoBehaviour
 
     void Start()
     {
-        time = GameObject.Find("Timer/Canvas/Time");
-        m = time.GetComponent<UpdateTime>().month;
-        if (m == 9 || m == 10) changeSprite(stage0);
+        //time = GameObject.Find("Timer/Canvas/Time");
+        //m = time.GetComponent<UpdateTime>().month;
+        //if (m == 9 || m == 10) changeSprite(stage0);
+        changeSprite(stage0);
+        m = time;
         //else Destroy(this);
     }
 
     void Update()
     {
-        m = time.GetComponent<UpdateTime>().month;
-        if (m == 3) changeSprite(stage1);
-        if (m == 4) changeSprite(stage2);
-        if (m == 5) changeSprite(stage3);
+        m = m - Time.deltaTime * 5;
+        if (m <= 0) changeSprite(stage3);
+        else if (m <= time / 4) changeSprite(stage2);
+        else if (m <= 3* time / 4) changeSprite(stage1);
+        
+        
     }
 } 
