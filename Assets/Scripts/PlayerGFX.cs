@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class PlayerGFX : MonoBehaviour
     public GameObject movementArrow;
     public GameObject ui;
     public Slider healthSlider;
+    public TextMeshProUGUI interactionHint, bagHint, money;
     
     public float idleTime = 1f;
     public float idleTimer;
@@ -35,6 +37,10 @@ public class PlayerGFX : MonoBehaviour
 
         _visibility = Mathf.Lerp(_visibility, _desiredVisibility, Time.deltaTime*visibilitySpring);
         ui.transform.localScale = _visibility * (new Vector3(1, 1, 1));
+
+        interactionHint.text = _player.focus ? _player.focus.hint : "";
+        bagHint.text = "Bag: " + (_player.bag ? _player.bag.name : "(empty)");
+        money.text = "$ " + _player.money.ToString();
     }
 
     public void DisplayUI()

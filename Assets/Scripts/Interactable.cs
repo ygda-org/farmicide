@@ -9,6 +9,7 @@ public class InteractableObjectEvent : UnityEvent<Player> {}
 
 public class Interactable : MonoBehaviour
 {
+    public string hint;
     public InteractableObjectEvent onInteract;
 
     private void OnTriggerEnter2D(Collider2D other)

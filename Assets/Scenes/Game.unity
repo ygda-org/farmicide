@@ -154,6 +154,10 @@ PrefabInstance:
       propertyPath: item
       value: 
       objectReference: {fileID: 7430608596500326256, guid: 16ff87b6765a437429e88530254cf707, type: 3}
+    - target: {fileID: 6318016095564946897, guid: 5c95cc7a01821624eb091df1cd950e5b, type: 3}
+      propertyPath: hint
+      value: (Action) to buy gun!
+      objectReference: {fileID: 0}
     - target: {fileID: 6318016095564946901, guid: 5c95cc7a01821624eb091df1cd950e5b, type: 3}
       propertyPath: m_Name
       value: Vendor_Turret
@@ -2402,7 +2406,7 @@ SpriteRenderer:
   m_Size: {x: 32.01, y: 18.005625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1001 &1818672612413793051
@@ -2497,6 +2501,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6318016095564946897, guid: 5c95cc7a01821624eb091df1cd950e5b, type: 3}
+      propertyPath: hint
+      value: (Action) to buy plant!
+      objectReference: {fileID: 0}
     - target: {fileID: 6318016095564946901, guid: 5c95cc7a01821624eb091df1cd950e5b, type: 3}
       propertyPath: m_Name
       value: Vendor_Plant
