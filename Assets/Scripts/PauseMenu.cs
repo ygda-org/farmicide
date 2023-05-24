@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,13 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject PauseMenuUI;
+    private GameManager _manager;
+
+    private void Start()
+    {
+        _manager = FindObjectOfType<GameManager>();
+        PauseMenuUI.SetActive(false);
+    }
 
     // Update is called once per frame
     void Update()
@@ -38,6 +46,6 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        Debug.Log("NOT YET IMPLEMENTED - SHOULD QUIT GAME"); //REPLACE WITH CODE TO QUIT GAME
+        _manager.ToMainMenu();
     }
 }

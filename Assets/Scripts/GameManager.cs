@@ -1,18 +1,25 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public Player leftPlayer, rightPlayer;
     public float leftTerritory, rightTerritory;
+
+    public GameObject endGameCanvas;
+    public TextMeshProUGUI endGameText;
+    
     public bool ended = false;
     private Territory _territory;
 
     private void Start()
     {
         _territory = FindObjectOfType<Territory>();
+        endGameCanvas.SetActive(false);
     }
 
     private void Update()
@@ -34,7 +41,18 @@ public class GameManager : MonoBehaviour
     {
         ended = true;
         Player winner = leftPlayer == loser ? rightPlayer : leftPlayer;
-        Debug.Log(winner + " beat " + loser + " !");
+        endGameText.text =  winner + " beat " + loser + " !";
+        endGameCanvas.SetActive(true); // TODO: animate this 
+    }
+
+    public void Replay()
+    {
+        SceneManager.LoadScene("Game");
+    }
+
+    public void ToMainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
     
 }
