@@ -19,19 +19,16 @@ public class Plot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (closest)
-        {
-            var col = closest.owner.color;
-            col.a = defaultColor.a;
-            _sprite.color = col;
-        }
+        var col = closest ? closest.owner.color : defaultColor;
+        col.a = defaultColor.a;
+        _sprite.color = col;
     }
 
-    public void Recompute()
+    public void Recompute(Marker[] markers)
     {
         closest = null;
         dist = float.MaxValue;
-        foreach (var marker in FindObjectsOfType<Marker>())
+        foreach (var marker in markers)
         {
             var sqm = (marker.transform.position - transform.position).sqrMagnitude;
             if (sqm < dist)

@@ -12,6 +12,6 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        Debug.Log("Functionality has not been implemented");
+        Application.Quit(0);
     }
 }

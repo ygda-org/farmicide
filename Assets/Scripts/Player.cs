@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public Vector2 moveDir = Vector2.right;
     private Rigidbody2D _rb;
     private PlayerGFX _playerGFX;
+    private GameManager _manager;
     public Target target;
 
     private void Awake()
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour
         target = GetComponent<Target>();
         target.owner = this;
         target.health = maxHealth;
+        _manager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -80,5 +82,10 @@ public class Player : MonoBehaviour
     {
         interactAction.Enable();
         turnAction.Enable();
+    }
+
+    private void OnDestroy()
+    {
+        _manager.LoseGame(this);
     }
 }

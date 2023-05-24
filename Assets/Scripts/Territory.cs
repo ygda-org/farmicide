@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Territory : MonoBehaviour
@@ -37,7 +38,7 @@ public class Territory : MonoBehaviour
         
         foreach (var plot in GetComponentsInChildren<Plot>())
         {
-            plot.Recompute();
+            plot.Recompute(FindObjectsOfType<Marker>());
             if (plot.closest)
             {
                 marked[plot.closest.owner]++;
