@@ -76,7 +76,11 @@ public class Player : MonoBehaviour
     {
         _playerGFX.DisplayUI();
     }
-    
+
+    public void AddMoney(float amount)
+    {
+        money += amount;
+    }
     
     private void OnEnable()
     {

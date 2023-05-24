@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Plant : MonoBehaviour
 {
+    public GameObject moneyPf; 
     private Target _target;
     // Start is called before the first frame update
     void Start()
@@ -13,6 +14,11 @@ public class Plant : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        
+    }
+
+    public void OnInteract(Player player)
     {
         
     }
