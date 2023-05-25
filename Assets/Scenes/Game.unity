@@ -442,7 +442,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1233207675}
+      - m_Target: {fileID: 839786662}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: Resume
         m_Mode: 1
@@ -2008,6 +2008,7 @@ GameObject:
   - component: {fileID: 839786660}
   - component: {fileID: 839786659}
   - component: {fileID: 839786658}
+  - component: {fileID: 839786662}
   m_Layer: 5
   m_Name: PauseCanvas
   m_TagString: Untagged
@@ -2097,6 +2098,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &839786662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839786657}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 911cc4144556c4b18b554807a2462527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PauseMenuUI: {fileID: 1233207671}
 --- !u!1 &935583150
 GameObject:
   m_ObjectHideFlags: 0
@@ -2216,7 +2230,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1233207672}
   - component: {fileID: 1233207674}
-  - component: {fileID: 1233207675}
   - component: {fileID: 1233207673}
   m_Layer: 5
   m_Name: Pause Menu
@@ -2285,19 +2298,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1233207671}
   m_CullTransparentMesh: 1
---- !u!114 &1233207675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1233207671}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 911cc4144556c4b18b554807a2462527, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PauseMenuUI: {fileID: 1233207671}
 --- !u!1 &1248897962
 GameObject:
   m_ObjectHideFlags: 0
@@ -3158,9 +3158,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1233207675}
-        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
-        m_MethodName: QuitGame
+      - m_Target: {fileID: 829803387}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ToMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
