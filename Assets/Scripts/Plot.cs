@@ -31,16 +31,13 @@ public class Plot : MonoBehaviour
         foreach (var marker in markers)
         {
             var sqm = (marker.transform.position - transform.position).sqrMagnitude;
+            if (sqm > marker.radius * marker.radius) continue;
+            
             if (sqm < dist)
             {
                 closest = marker;
                 dist = sqm;
             }
-        }
-
-        if (closest && Mathf.Pow(dist, 2) >= closest.radius)
-        {
-            closest = null;
         }
     }
 }

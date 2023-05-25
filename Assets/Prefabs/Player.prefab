@@ -334,7 +334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   color: {r: 0, g: 0, b: 0, a: 0}
-  money: 1234567
+  money: 10
   bag: {fileID: 0}
   focus: {fileID: 0}
   interacting: 0
@@ -388,8 +388,8 @@ MonoBehaviour:
       m_Action: Turn
       m_Flags: 8
     m_Flags: 0
-  turnSpeed: 360
-  moveSpeed: 2
+  turnSpeed: 540
+  moveSpeed: 3.5
   moveDir: {x: 1, y: 0}
   target: {fileID: 0}
 --- !u!114 &7922218990159134430
