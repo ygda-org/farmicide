@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     {
         _territory = FindObjectOfType<Territory>();
         endGameCanvas.SetActive(false);
+
+        Application.targetFrameRate = 30;
     }
 
     private void Update()

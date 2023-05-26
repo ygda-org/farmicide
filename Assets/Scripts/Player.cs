@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     
     public InputAction interactAction;
     public InputAction turnAction;
+    public bool isTurningDiagonal;
 
     public float turnSpeed = 0.1f, moveSpeed = 5f;
     public Vector2 moveDir = Vector2.right;
@@ -29,6 +30,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         interactAction.performed += OnInteract;
+        turnAction.performed += OnTurn;
     }
 
     void Start()
@@ -39,15 +41,13 @@ public class Player : MonoBehaviour
         target.owner = this;
         target.health = maxHealth;
         _manager = FindObjectOfType<GameManager>();
+        moveDir = new(1, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        interacting = interactAction.ReadValue<float>() > 0f;
-        var turning = turnAction.ReadValue<float>();
         
-        moveDir = (Quaternion.Euler(0f, 0f, -turnSpeed*turning*Time.deltaTime) * moveDir);
         _rb.velocity = moveDir * moveSpeed;
         
         if(focus) _playerGFX.DisplayUI();
@@ -65,6 +65,22 @@ public class Player : MonoBehaviour
             
             bag = null;
         }
+
+        interacting = interactAction.ReadValue<float>() > 0f;
+    }
+
+    void OnTurn(InputAction.CallbackContext ctx)
+    {
+        var turning = turnAction.ReadValue<Vector2>();  
+
+        if (turning != Vector2.zero && ((isTurningDiagonal && turning == Vector2.zero) || !isTurningDiagonal)) {
+            moveDir = new(turning.x, turning.y);
+        }
+
+        if (turning.x != 0 && turning.y != 0)
+            isTurningDiagonal = true;
+        else isTurningDiagonal = false;
+
     }
 
     public void Focus(Interactable interactable)
