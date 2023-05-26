@@ -92,4 +92,12 @@ public class Player : MonoBehaviour
     {
         _manager.LoseGame(this);
     }
+
+    void OnTriggerEnter2D(Collider2D collisionData) 
+    {
+        if (collisionData.gameObject.tag == "VerticalBorder") 
+            moveDir = new(moveDir.x, -moveDir.y);
+        if (collisionData.gameObject.tag == "HorizontalBorder")
+            moveDir = new(-moveDir.x, moveDir.y);
+    }
 }
