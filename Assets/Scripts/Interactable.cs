@@ -17,7 +17,8 @@ public class Interactable : MonoBehaviour
         Player player;
         if (other.gameObject.TryGetComponent(out player))
         {
-            player.Focus(this);
+            var _target = GetComponent<Target>();
+            if(!_target || _target.owner == player) player.Focus(this);
         }
     }
 
