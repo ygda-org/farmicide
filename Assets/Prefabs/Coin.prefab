@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 7996477189458779707}
   - component: {fileID: 7996477189458779706}
   - component: {fileID: 7996477189458779708}
+  - component: {fileID: -8813462658083262018}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -179,3 +180,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 10
+  players: []
+  attractRad: 5
+  attractForce: 5
+--- !u!50 &-8813462658083262018
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7996477189458779705}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 1
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
