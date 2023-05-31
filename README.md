@@ -12,11 +12,11 @@ ok lets see
 ## 05/20/2023
 - [x] Domination
 - [x] Player Health UI
-- [ ] turrets
+- [x] turrets
   - turret vendor, turret placement: context placement (perhaps upgrade).
-  - straight for now (lol lgbtq moment)
+  - straight for now
   - auto target? health deduction
   - perhaps stock ammo? TODO: future
-- [ ] econ
-  - [ ] plants
+- [x] econ
+  - [x] plants
     - lifecycle. harvest context action.
