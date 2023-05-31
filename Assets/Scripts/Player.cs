@@ -14,23 +14,17 @@ public class Player : MonoBehaviour
     public GameObject bag;
     public Interactable focus;
 
-    public bool interacting;
-    
+    public float interactHold = 0f, interactTimer = 0f;
     public InputAction interactAction;
     public InputAction turnAction;
 
-    public float turnSpeed = 0.1f, moveSpeed = 5f;
-    public Vector2 moveDir = Vector2.right;
+    public float moveSpeed = 5f;
+    public Vector2 moveDir;
     private Rigidbody2D _rb;
     private PlayerGFX _playerGFX;
     private GameManager _manager;
     public Target target;
-
-    private void Awake()
-    {
-        interactAction.performed += OnInteract;
-    }
-
+    
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -44,16 +38,20 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        interacting = interactAction.ReadValue<float>() > 0f;
-        var turning = turnAction.ReadValue<float>();
+        interactTimer = interactAction.ReadValue<float>() > 0f ? interactTimer + Time.deltaTime : 0f;
+        if (interactTimer > interactHold)
+        {
+            interactTimer = 0f;
+            OnInteract();
+        }
         
-        moveDir = (Quaternion.Euler(0f, 0f, -turnSpeed*turning*Time.deltaTime) * moveDir);
+        moveDir = turnAction.ReadValue<Vector2>().normalized;
         _rb.velocity = moveDir * moveSpeed;
         
-        if(focus) _playerGFX.DisplayUI();
+        if(focus || interactTimer > 0f) _playerGFX.DisplayUI();
     }
 
-    void OnInteract(InputAction.CallbackContext ctx)
+    void OnInteract()
     {
         if (focus)
         {
