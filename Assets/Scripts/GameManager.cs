@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        var total = _territory.dims.x * _territory.dims.y;
+        var total = (int)(_territory.dims.x / _territory.tileSize.x) * (int)(_territory.dims.y / _territory.tileSize.y);
         leftTerritory = _territory.marked[leftPlayer] / (total*1f);
         rightTerritory = _territory.marked[rightPlayer] / (total * 1f);
 

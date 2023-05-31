@@ -3259,7 +3259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plot: {fileID: 8753346819006511147, guid: 0bd03222126cc4041b7f5e1e5f5fe0b7, type: 3}
   dims: {x: 30, y: 15}
-  tileSize: {x: 1, y: 1}
+  tileSize: {x: 0.25, y: 0.25}
 --- !u!4 &1862754278
 Transform:
   m_ObjectHideFlags: 0
