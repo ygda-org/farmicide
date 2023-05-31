@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,21 +7,39 @@ using UnityEngine;
 public class Territory : MonoBehaviour
 {
     public GameObject plot;
+    public Vector2 dims; // (x = width, y = height)
     public Dictionary<Player, int> marked;
-    public Vector2Int dims;
+    public Vector2 tileSize = new Vector2(1f, 1f);
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(transform.position, new Vector3(dims.x, dims.y, 0.1f));
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        Spawn();
         marked = new Dictionary<Player, int>();
-        for (int i = 0; i < dims.y; i++)
+        Mark();
+    }
+
+    void Spawn()
+    {
+        for (int i = 0; i < dims.y/tileSize.y; i++)
         {
-            for (int j = 0; j < dims.x; j++)
+            for (int j = 0; j < dims.x/tileSize.x; j++)
             {
-                Instantiate(plot, new Vector3((j-(dims.x-1)/2f), (i-(dims.y-1)/2f), 0), Quaternion.identity, transform);
+                var p = Instantiate(plot, new Vector3(TileNumToCoord(j, dims.x), TileNumToCoord(i, dims.y), 0), Quaternion.identity, transform);
+                p.transform.localScale = new Vector3(tileSize.x, tileSize.y, 1f);
             }
         }
-        
-        Mark();
+    }
+    
+    float TileNumToCoord(int num, float dim)
+    {
+        return num - (dim - 1) / 2f;
     }
 
     // Update is called once per frame
