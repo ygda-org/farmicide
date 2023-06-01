@@ -442,7 +442,7 @@ PrefabInstance:
     - target: {fileID: 6318016095564946896, guid: 5c95cc7a01821624eb091df1cd950e5b, type: 3}
       propertyPath: item
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6105213613457942211, guid: 5031cc54cd8ebfd4f8bc54ac2d528f96, type: 3}
     - target: {fileID: 6318016095564946897, guid: 5c95cc7a01821624eb091df1cd950e5b, type: 3}
       propertyPath: hint
       value: Buy Beacon ($100)
