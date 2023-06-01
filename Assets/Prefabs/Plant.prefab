@@ -81,7 +81,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToHarvest: 5
   coinPf: {fileID: 7996477189458779705, guid: dc11778649c78154caa4ab5fa2d1be83, type: 3}
-  countRange: {x: 4, y: 7}
+  countRange: {x: 10, y: 12}
   spawnRad: 2
 --- !u!61 &4599231904353896363
 BoxCollider2D:
