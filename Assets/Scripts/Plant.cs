@@ -17,7 +17,7 @@ public class Plant : MonoBehaviour
     void Start()
     {
         _target = GetComponent<Target>();
-        _interactable = GetComponent<Interactable>();
+        _interactable = GetComponentInChildren<Interactable>();
     }
 
     // Update is called once per frame
