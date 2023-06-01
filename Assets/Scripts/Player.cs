@@ -59,7 +59,8 @@ public class Player : MonoBehaviour
         } else if (bag)
         {
             var obj = Instantiate(bag, transform.position, Quaternion.identity);
-            obj.GetComponent<Target>().owner = this;
+            var tobj = obj.GetComponent<Target>();
+            if (tobj) tobj.owner = this;
             
             bag = null;
         }

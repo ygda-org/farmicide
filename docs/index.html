@@ -57,11 +57,12 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/v0.0.2-webgl.loader.js";
+      var version = "v0.2.4-webgl";
+      var loaderUrl = buildUrl + `/${version}.loader.js`;
       var config = {
-        dataUrl: buildUrl + "/v0.0.2-webgl.data",
-        frameworkUrl: buildUrl + "/v0.0.2-webgl.framework.js",
-        codeUrl: buildUrl + "/v0.0.2-webgl.wasm",
+        dataUrl: buildUrl + `/${version}.data`,
+        frameworkUrl: buildUrl + `/${version}.framework.js`,
+        codeUrl: buildUrl + `/${version}.wasm`,
         streamingAssetsUrl: "StreamingAssets",
         companyName: "YGDA",
         productName: "farmicide",
