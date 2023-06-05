@@ -80,6 +80,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToHarvest: 5
+  stages:
+  - {fileID: 21300000, guid: 1a1af04791c82da49a02273ef461fff7, type: 3}
+  - {fileID: 21300000, guid: d91eeaa6327fbbd4da9730efdf473777, type: 3}
+  - {fileID: 21300000, guid: 1d003b0dbf71b9047bec3bd16cf47050, type: 3}
+  - {fileID: 21300000, guid: 6bf51a5e9b2c07845893dbb7d1ca8780, type: 3}
+  mainSprite: {fileID: 6193347723976396008}
   coinPf: {fileID: 7996477189458779705, guid: dc11778649c78154caa4ab5fa2d1be83, type: 3}
   countRange: {x: 10, y: 12}
   spawnRad: 2
@@ -120,7 +126,7 @@ GameObject:
   - component: {fileID: 7048500755180353413}
   - component: {fileID: 6193347723976396008}
   m_Layer: 0
-  m_Name: wheat4
+  m_Name: Plant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,7 +140,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4453758711905035410}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.406, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []

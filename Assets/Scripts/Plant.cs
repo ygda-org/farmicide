@@ -1,10 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Plant : MonoBehaviour
 {
     public float timeToHarvest = 5f;
+    public Sprite[] stages;
+    public SpriteRenderer mainSprite;
     private float growTime = 0;
     
     public GameObject coinPf;
@@ -32,6 +36,15 @@ public class Plant : MonoBehaviour
     void Update()
     {
         growTime += Time.deltaTime;
+        
+        float dt = timeToHarvest / (stages.Length - 1);
+
+        if (growTime <= timeToHarvest+Time.maximumDeltaTime)
+        {
+            int stage = Math.Min(stages.Length - 1, Mathf.FloorToInt(growTime / dt));
+            mainSprite.sprite = stages[stage];
+        }
+
         _interactable.hint = growTime >= timeToHarvest ? "Harvest!" : "Growing...";
     }
 
