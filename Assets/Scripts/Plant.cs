@@ -17,9 +17,17 @@ public class Plant : MonoBehaviour
     private Target _target;
 
     private Interactable _interactable;
+
+    private GameObject plantManager;
+
+    private GameObject owner;
     // Start is called before the first frame update
     void Start()
     {
+        owner = GetClosest();
+        plantManager = GameObject.Find("PlantManager");
+        PlantManager pManager = plantManager.GetComponent<PlantManager>();
+        pManager.AddPlant(this.gameObject);
         _target = GetComponent<Target>();
         _interactable = GetComponentInChildren<Interactable>();
     }
@@ -52,5 +60,28 @@ public class Plant : MonoBehaviour
             growTime = 0;
         }
     }
-    
+
+    private GameObject GetClosest()
+    {
+        GameObject player_L = GameObject.Find("Player_L");
+        GameObject player_R = GameObject.Find("Player_R");
+
+        float distanceToPlayer_L = Vector3.Distance(transform.position, player_L.transform.position);
+        float distanceToPlayer_R = Vector3.Distance(transform.position, player_R.transform.position);
+
+        if (distanceToPlayer_L <= distanceToPlayer_R)
+        {
+            return player_L;
+        }
+        else
+        {
+            return player_R;
+        }
+    }
+
+    public GameObject getOwner()
+    {
+        return owner;
+    }
+
 }
