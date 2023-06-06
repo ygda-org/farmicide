@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     public void LoseGame(Player loser)
     {
+        Time.timeScale = 0f;
         ended = true;
         Player winner = leftPlayer == loser ? rightPlayer : leftPlayer;
         endGameText.text =  winner + " beat " + loser + " !";
