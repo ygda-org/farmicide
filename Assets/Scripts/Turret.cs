@@ -37,6 +37,7 @@ public class Turret : MonoBehaviour
         if (!canShoot) return;
         var b = Instantiate(bullet, shootPoint.position, Quaternion.identity, transform);
         b.transform.rotation = gun.rotation;
+        b.GetComponent<Bullet>().owner = _target.owner;
         
         canShoot = false;
         StartCoroutine(Reload());
@@ -50,7 +51,6 @@ public class Turret : MonoBehaviour
 
     void FindTarget()
     {
-        Debug.Log("finding target" +  _target.owner + "is my dad");
         target = null;
         var dist = float.MaxValue;
 

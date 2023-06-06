@@ -10,6 +10,7 @@ public class InteractableObjectEvent : UnityEvent<Player> {}
 public class Interactable : MonoBehaviour
 {
     public string hint;
+    public Target target;
     public InteractableObjectEvent onInteract;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -17,8 +18,7 @@ public class Interactable : MonoBehaviour
         Player player;
         if (other.gameObject.TryGetComponent(out player))
         {
-            var _target = GetComponent<Target>();
-            if(!_target || _target.owner == player) player.Focus(this);
+            if(!target || target.owner == player) player.Focus(this);
         }
     }
 
