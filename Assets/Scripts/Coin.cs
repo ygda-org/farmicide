@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    public float value;
+    public int value;
     public Player[] players;
     public float attractRad = 5f, attractForce = 5f;
     private Rigidbody2D _rb;

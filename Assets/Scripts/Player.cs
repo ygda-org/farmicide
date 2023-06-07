@@ -10,13 +10,14 @@ public class Player : MonoBehaviour
     public float maxHealth = 100f;
     
     public Color color;
-    public float money;
+    public int money;
     public GameObject bag;
     public Interactable focus;
 
     public float interactHold = 0f, interactTimer = 0f;
     public InputAction interactAction;
     public InputAction turnAction;
+    public bool interactIsDisabled = false;
 
     public float moveSpeed = 5f;
     public Vector2 moveDir;
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour
     private PlayerGFX _playerGFX;
     private GameManager _manager;
     public Target target;
+
     
     void Start()
     {
@@ -38,6 +40,12 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        moveDir = turnAction.ReadValue<Vector2>().normalized;
+        _rb.velocity = moveDir * moveSpeed;
+
+        if (interactIsDisabled) return;
+
+        
         interactTimer = interactAction.ReadValue<float>() > 0f ? interactTimer + Time.deltaTime : 0f;
         if (interactTimer > interactHold)
         {
@@ -45,8 +53,6 @@ public class Player : MonoBehaviour
             OnInteract();
         }
         
-        moveDir = turnAction.ReadValue<Vector2>().normalized;
-        _rb.velocity = moveDir * moveSpeed;
         
         if(focus || interactTimer > 0f) _playerGFX.DisplayUI();
     }
@@ -76,7 +82,7 @@ public class Player : MonoBehaviour
         _playerGFX.DisplayUI();
     }
 
-    public void AddMoney(float amount)
+    public void AddMoney(int amount)
     {
         money += amount;
     }

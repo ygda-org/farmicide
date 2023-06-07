@@ -6,6 +6,9 @@ TagManager:
   tags:
   - TutorialText
   - TutorialTextCanvas
+  - PlantVendor
+  - GameManager
+  - TerritoryManager
   layers:
   - Default
   - TransparentFX
