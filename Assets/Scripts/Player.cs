@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Diagnostics;
 
 public class Player : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class Player : MonoBehaviour
     public Target target;
 
     
-    void Start()
+    void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _playerGFX = GetComponent<PlayerGFX>();
@@ -57,8 +58,6 @@ public class Player : MonoBehaviour
             if (interactTimer == 0f) 
                 UIPopUpBufferTimer = UIPopUpBuffer;
 
-        interactDelayTimer--;
-        UIPopUpBufferTimer--;
 
         if (interactTimer > interactHold)
         {
@@ -74,6 +73,11 @@ public class Player : MonoBehaviour
             _playerGFX.DisplayUI();
         else if (interactAction.ReadValue<float>() == 0)
             _playerGFX.InteruptUI();
+
+
+        interactDelayTimer--;
+        UIPopUpBufferTimer--;
+
 
     }
 
@@ -113,8 +117,8 @@ public class Player : MonoBehaviour
         turnAction.Enable();
     }
 
-    private void OnDestroy()
-    {
-        _manager.LoseGame(this);
-    }
+    // private void OnDestroy()
+    // {
+    //     _manager.LoseGame(this);
+    // }
 }

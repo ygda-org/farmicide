@@ -276,8 +276,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 220, y: 130}
-  m_SizeDelta: {x: 250, y: 50}
+  m_AnchoredPosition: {x: 750, y: 450}
+  m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &128191484
 MonoBehaviour:
@@ -326,8 +326,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1638,7 +1638,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialTextPrefab: {fileID: 5695766462711006987, guid: f9321ac1cac034843906a7bac645f5e6, type: 3}
-  escapeGameTextPrefab: {fileID: 0}
   playerScript: {fileID: 648463785}
   plantPrefab: {fileID: 2344000968268828191, guid: 6fe31273c56fa794e8fcca962f40a837, type: 3}
   turretPrefab: {fileID: 7430608596500326256, guid: 16ff87b6765a437429e88530254cf707, type: 3}

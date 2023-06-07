@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Diagnostics;
 
 public class GameManager : MonoBehaviour
 {
@@ -39,10 +40,14 @@ public class GameManager : MonoBehaviour
 
     public void LoseGame(Player loser)
     {
+        // StackTrace stackTrace = new StackTrace(); 
+        // print(stackTrace.GetFrame(1).GetMethod().Name);
+
         ended = true;
         Player winner = leftPlayer == loser ? rightPlayer : leftPlayer;
         endGameText.text =  winner + " beat " + loser + " !";
         endGameCanvas.SetActive(true); // TODO: animate this 
+
     }
 
     public void Replay()
