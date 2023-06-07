@@ -15,6 +15,9 @@ public class Player : MonoBehaviour
     public Interactable focus;
 
     public float interactHold = 0f, interactTimer = 0f;
+    public float interactDelay = 0f, interactDelayTimer = 0f;
+    public float UIPopUpBuffer = 0f, UIPopUpBufferTimer = 0f;
+
     public InputAction interactAction;
     public InputAction turnAction;
     public bool interactIsDisabled = false;
@@ -37,24 +40,41 @@ public class Player : MonoBehaviour
         _manager = FindObjectOfType<GameManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // basic movement
+
         moveDir = turnAction.ReadValue<Vector2>().normalized;
         _rb.velocity = moveDir * moveSpeed;
 
         if (interactIsDisabled) return;
 
-        
-        interactTimer = interactAction.ReadValue<float>() > 0f ? interactTimer + Time.deltaTime : 0f;
+
+        // interaction handler
+
+        if (interactDelayTimer <= 0)
+            interactTimer = interactAction.ReadValue<float>() > 0f ? interactTimer + Time.deltaTime : 0f;
+            if (interactTimer == 0f) 
+                UIPopUpBufferTimer = UIPopUpBuffer;
+
+        interactDelayTimer--;
+        UIPopUpBufferTimer--;
+
         if (interactTimer > interactHold)
         {
             interactTimer = 0f;
             OnInteract();
+            interactDelayTimer = interactDelay;
         }
         
-        
-        if(focus || interactTimer > 0f) _playerGFX.DisplayUI();
+        if(focus) 
+            _playerGFX.DisplayUI();
+
+        if (interactTimer > 0f && UIPopUpBufferTimer <= 0)
+            _playerGFX.DisplayUI();
+        else if (interactAction.ReadValue<float>() == 0)
+            _playerGFX.InteruptUI();
+
     }
 
     void OnInteract()

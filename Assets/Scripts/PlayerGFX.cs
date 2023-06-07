@@ -58,4 +58,8 @@ public class PlayerGFX : MonoBehaviour
         _desiredVisibility = 1f;
         idleTimer = 0f;
     }
+    public void InteruptUI()
+    {
+        _desiredVisibility = 0f;
+    }
 }
