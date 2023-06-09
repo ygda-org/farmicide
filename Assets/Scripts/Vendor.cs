@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Vendor : MonoBehaviour
 {
-    public float cost = 10f;
+    public int cost = 10;
     public GameObject item;
 
     public void Buy(Player player)
