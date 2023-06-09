@@ -40,9 +40,7 @@ public class GameManager : MonoBehaviour
 
     public void LoseGame(Player loser)
     {
-        // StackTrace stackTrace = new StackTrace(); 
-        // print(stackTrace.GetFrame(1).GetMethod().Name);
-
+        Time.timeScale = 0f;
         ended = true;
         Player winner = leftPlayer == loser ? rightPlayer : leftPlayer;
         endGameText.text =  winner + " beat " + loser + " !";
