@@ -18,6 +18,7 @@ public class PlayerGFX : MonoBehaviour
     public float idleTimer;
     public float visibilitySpring = 2f;
     private float _desiredVisibility = 0f, _visibility = 0f;
+    private int _currentDirection = 1;
     private Player _player;
 
     private Rigidbody2D _rb;
@@ -30,9 +31,11 @@ public class PlayerGFX : MonoBehaviour
 
     void Update()
     {
-        // in-game ui feedback
-        movementArrow.transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(_player.moveDir.y, _player.moveDir.x)*Mathf.Rad2Deg);
-        mainGFX.transform.rotation = Quaternion.Euler(0f, _rb.velocity.x >= 0f ? 0f : 180f, 0f); // sprite flipping
+        // in-game ui feedback and flips the sprite
+        if (_rb.velocity.x > 0) _currentDirection = 1;
+        if (_rb.velocity.x < 0) _currentDirection = -1;
+        movementArrow.transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(_player.moveDir.y, _player.moveDir != new Vector2(0, 0) ?_player.moveDir.x : _currentDirection)*Mathf.Rad2Deg);
+        mainGFX.transform.rotation = Quaternion.Euler(0f, _currentDirection == 1 ? 0 : 180, 0f); // sprite flipping
         
         // hide/show detail panel
         idleTimer += Time.deltaTime;
