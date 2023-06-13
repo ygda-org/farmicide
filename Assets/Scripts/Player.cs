@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
 
         if (interactTimer > 0f && UIPopUpBufferTimer <= 0)
             _playerGFX.DisplayUI();
-        else if (interactAction.ReadValue<float>() == 0)
+        else if (interactAction.ReadValue<float>() == 0 && !focus)
             _playerGFX.InteruptUI();
 
 
